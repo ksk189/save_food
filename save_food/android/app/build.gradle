@@ -1,0 +1,71 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+}
+
+android {
+    namespace = "com.example.save_food"
+    compileSdk = 34
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+ defaultConfig {
+    applicationId = "com.example.save_food"
+    minSdk = 23
+    targetSdk = 34
+    versionCode = 1
+    versionName = "1.0"
+    multiDexEnabled = true
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+}
+
+    buildTypes {
+        release {
+            // Enable code shrinking and resource shrinking
+            minifyEnabled false
+            shrinkResources false
+
+            // Use the default ProGuard rules file
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            // Disable shrinking in debug mode
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:33.5.1')
+
+    // Firebase dependencies
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging'
+
+    // Multidex support
+    implementation 'androidx.multidex:multidex:2.0.1'
+}
